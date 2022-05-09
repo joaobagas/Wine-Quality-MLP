@@ -11,10 +11,8 @@ class Net(nn.Module):
             nn.ReLU(inplace=True),
             nn.Dropout(p=0.5),
             nn.Linear(11, 11),
-            nn.ReLU(inplace=True),
-            nn.Dropout(p=0.5),
-            nn.Linear(11, 11),
-            nn.Sigmoid()
+            nn.Sigmoid(),
+            nn.Dropout(p=0.5)
         )
 
     def forward(self, x):
