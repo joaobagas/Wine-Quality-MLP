@@ -7,13 +7,9 @@ class Net(nn.Module):
         super(Net, self).__init__()
 
         self.fc = nn.Sequential(
-            nn.Linear(11, 22),
+            nn.Linear(11, 11),
             nn.ReLU(inplace=True),
-            nn.Dropout(p=0.5),
-            nn.Linear(22, 22),
-            nn.ReLU(inplace=True),
-            nn.Dropout(p=0.5),
-            nn.Linear(22, 11),
+            nn.Linear(11, 11),
             nn.Sigmoid()
         )
 

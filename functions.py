@@ -31,7 +31,7 @@ def train(net, train_set, criterion, optimizer):
         results = results.to(torch.float32)
         size = results.size()[0]
         outputs = net.forward(inputs)
-        loss = criterion(outputs.reshape(size, 11), results.reshape(size, 11))  # Last batch is too small
+        loss = criterion(outputs.reshape(size, 11), results.reshape(size, 11))
         loss.backward()
         optimizer.step()
         optimizer.zero_grad()
@@ -46,7 +46,10 @@ def validate(net, val_set, criterion):
         inputs, results = batch
         outputs = net.forward(inputs)
         size = results.size()[0]
-        losses += criterion(outputs.reshape(size, 11), results.reshape(size, 11))
+        losses += criterion(outputs.reshape(size, 11).float(), results.reshape(size, 11).float())
         times += 1
 
     return losses/times
+
+def calculate_accuracy(inputs, outputs):
+    print("")
