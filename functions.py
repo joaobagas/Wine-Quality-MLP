@@ -37,19 +37,15 @@ def train(net, train_set, criterion, optimizer):
         optimizer.zero_grad()
 
 
-def validate(net, val_set, criterion):
+def validate(net, val_set):
     val_loader = DataLoader(val_set, 20)
     net.eval()
-    losses, times = 0, 0
+    matches = []
 
     for batch in val_loader:
         inputs, results = batch
         outputs = net.forward(inputs)
-        size = results.size()[0]
-        losses += criterion(outputs.reshape(size, 11).float(), results.reshape(size, 11).float())
-        times += 1
+        matches += [torch.argmax(i) == torch.argmax(j) for i, j in zip(outputs, results)]
+    accuracy = (matches.count(True) / len(matches)) * 100
 
-    return losses/times
-
-def calculate_accuracy(inputs, outputs):
-    print("")
+    return accuracy
